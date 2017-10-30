@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">StudInfo</string>
+    <string name="reg_name">Name</string>
+    <string name="e_mail">Email</string>
+    <string name="password">Password</string>
+    <string name="con_password">Confirm Password</string>
+    <string name="button_login">LOGIN</string>
+    <string name="button_register">REGISTER</string>
+
+
+</resources>
