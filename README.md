@@ -1,0 +1,1 @@
+# andrroid_studinfo
