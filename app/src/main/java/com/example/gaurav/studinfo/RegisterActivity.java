@@ -2,6 +2,7 @@ package com.example.gaurav.studinfo;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,8 @@ public class RegisterActivity extends AppCompatActivity {
     TextView txtEmail;
     TextView txtPassword;
     TextView txtConPass;
-    Button reg_button;
+    Button btn_register;
+    Button btn_login;
 
 
 
@@ -32,26 +34,39 @@ public class RegisterActivity extends AppCompatActivity {
         txtEmail = (TextView)findViewById(R.id.txtEmail);
         txtPassword = (TextView)findViewById(R.id.txtPwd);
         txtConPass = (TextView)findViewById(R.id.txtConfirmPwd);
-        reg_button = (Button)findViewById(R.id.btnReg);
+        btn_register = (Button)findViewById(R.id.btnReg);
+        btn_login = (Button)findViewById(R.id.btnLogin);
 
-        reg_button.setOnClickListener(new View.OnClickListener() {
+
+        btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 db = OpenHelper.getWritableDatabase();
+
                 String Name = txtName.getText().toString();
                 String Email = txtEmail.getText().toString();
                 String Password = txtPassword.getText().toString();
                 String ConfirmPassword = txtConPass.getText().toString();
 
                 if(Password.equals(ConfirmPassword)){
-                    insertRegData(Name,Email,Password);
-                    Toast.makeText(getApplicationContext(),"successfully registered",Toast.LENGTH_LONG).show();
+                    db.execSQL("INSERT INTO admin_details(name,email,password) VALUES('"+Name+"','"+Email+"','"+Password+"')");
+                  // insertRegData(Name,Email,Password);
+                    Toast.makeText(getApplicationContext(),"Registered Successfully !! ",Toast.LENGTH_LONG).show();
 
                 }
                 else {
-                    Toast.makeText(getApplicationContext(),"Passwords dont match",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Passwords don't match",Toast.LENGTH_LONG).show();
                 }
 
+
+            }
+        });
+
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RegisterActivity.this , LoginActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -59,12 +74,13 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    public void  insertRegData(String name, String email,String pwd){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseHelper.COL_2,name);
-        contentValues.put(DatabaseHelper.COL_3,email);
-        contentValues.put(DatabaseHelper.COL_4,pwd);
-
-    }
+//    public void  insertRegData(String name, String email,String pwd){
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put(DatabaseHelper.COL_1,name);
+//        contentValues.put(DatabaseHelper.COL_2,5);
+//        contentValues.put(DatabaseHelper.COL_3,5);
+//        contentValues.put(DatabaseHelper.COL_4,5);
+//
+//    }
 
 }
